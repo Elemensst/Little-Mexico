@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Mexico</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fefcf9;
+      color: #4e342e;
+    }
+    .navbar {
+      background-color: #6d4c41;
+    }
+    .navbar a, .navbar-brand {
+      color: #fff !important;
+    }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://lh3.googleusercontent.com/p/AF1QipMN5onWe2GoXqCgdYfiKy-xoKUPXSA2j8Y-kKEh=s1360-w1360-h1020');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .section-title {
+      text-align: center;
+      margin: 3rem 0 2rem;
+      font-weight: bold;
+    }
+    footer {
+      background-color: #6d4c41;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    .product-card {
+      background: #fff3e0;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .btn-order {
+      background-color: #8d6e63;
+      border: none;
+      color: white;
+    }
+    .btn-order:hover {
+      background-color: #5d4037;
+    }
+    .cart-icon {
+      position: relative;
+    }
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #d32f2f;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checkout-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .checkout-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
+    }
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #ddd;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .quantity-input {
+      width: 40px;
+      text-align: center;
+      margin: 0 5px;
+    }
+    #checkoutModal .modal-content {
+      border-radius: 15px;
+    }
+    .checkout-summary {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .address-form {
+      display: none;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">Little Mexico</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Order</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item">
+            <a class="nav-link cart-icon" href="#" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+              <i class="bi bi-cart"></i>
+              <span class="cart-count">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="text-center">
+      <h1 class="display-4">Welcome to Little Mexico</h1>
+      <p class="lead">Your daily dose of warmth and aroma</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="container py-5">
+    <h2 class="section-title">About Us</h2>
+    <p class="text-center">Little Mexico brings a fusion of comforting Mexican food to the vibrant city of Surat. Whether you're catching up with friends or diving into a good book, our cozy ambiance and handcrafted menu await.</p>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="container py-5">
+    <h2 class="section-title">Order Online</h2>
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="product-card">
+          <img src="https://aplateofhappiness.net/wp-content/uploads/2020/12/img_7691.jpg?w=1680" alt="Rice Bowl">
+          <h5 class="mt-3">Rice Bowl</h5>
+          <p>₹120</p>
+          <button class="btn btn-order w-100 add-to-cart" data-name="Rice Bowl" data-price="120" data-img="https://aplateofhappiness.net/wp-content/uploads/2020/12/img_7691.jpg?w=1680">Add to Cart</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-card">
+          <img src="https://cdn.britannica.com/13/234013-050-73781543/rice-and-chorizo-burrito.jpg">
+          <h5 class="mt-3">Burrito</h5>
+          <p>₹120</p>
+          <button class="btn btn-order w-100 add-to-cart" data-name="Burrito" data-price="120" data-img="https://cdn.britannica.com/13/234013-050-73781543/rice-and-chorizo-burrito.jpg">Add to Cart</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-card">
+          <img src="https://cdn.loveandlemons.com/wp-content/uploads/2024/01/quesadilla.jpg" alt="Quesadilla">
+          <h5 class="mt-3">Quesadilla</h5>
+          <p>₹100</p>
+          <button class="btn btn-order w-100 add-to-cart" data-name="Quesadilla" data-price="100" data-img="https://cdn.loveandlemons.com/wp-content/uploads/2024/01/quesadilla.jpg">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="product-card">
+          <img src="https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/04/Pico-De-Gallo-5.jpg" alt="Salsa">
+          <h5 class="mt-3">Salsa</h5>
+          <p>₹60</p>
+          <button class="btn btn-order w-100 add-to-cart" data-name="Salsa" data-price="60" data-img="https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2023/04/Pico-De-Gallo-5.jpg">Add to Cart</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-card">
+          <img src="https://www.tastyrewards.com/sites/default/files/2024-01/Ultimate%20Four%20Cheese%20Nachos_0.jpg" alt="Nachos">
+          <h5 class="mt-3">Nachos</h5>
+          <p>₹90</p>
+          <button class="btn btn-order w-100 add-to-cart" data-name="Nachos" data-price="90" data-img="https://www.tastyrewards.com/sites/default/files/2024-01/Ultimate%20Four%20Cheese%20Nachos_0.jpg">Add to Cart</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-card">
+          <img src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2023%2F01%2F30%2F70935-taqueria-style-tacos-mfs-3x2-35.jpg&q=60&c=sc&poi=auto&orient=true&h=512" alt="Tacos">
+          <h5 class="mt-3">Tacos</h5>
+          <p>₹80</p>
+          <button class="btn btn-order w-100 add-to-cart" data-name="Tacos" data-price="80" data-img="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2023%2F01%2F30%2F70935-taqueria-style-tacos-mfs-3x2-35.jpg&q=60&c=sc&poi=auto&orient=true&h=512">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container py-5">
+    <h2 class="section-title">Contact Us</h2>
+    <form id="contactForm">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" id="message" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-order">Send Message</button>
+    </form>
+    <div class="mt-4">
+      <h5>Visit Us:</h5>
+      <p>Little Mexico, Piplod, Surat, Gujarat, India</p>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.0468945096354!2d72.76606747499712!3d21.150531980529486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d6de6690d77%3A0x446d9ed774562641!2sLittle%20Mexico!5e0!3m2!1sen!2sin!4v1745151963223!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Little Mexico. All rights reserved.</p>
+  </footer>
+
+  <!-- Checkout Modal -->
+  <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkoutModalLabel">Your Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-8">
+              <div id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <div class="text-center py-5" id="emptyCartMessage">
+                  <i class="bi bi-cart-x" style="font-size: 3rem; color: #ccc;"></i>
+                  <p class="mt-3">Your cart is empty</p>
+                </div>
+              </div>
+              
+              <div id="addressForm" class="address-form">
+                <h5>Delivery Address</h5>
+                <form id="deliveryForm">
+                  <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Street Address</label>
+                    <textarea class="form-control" id="address" rows="3" required></textarea>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="zip">ZIP Code</label>
+                        <input type="text" class="form-control" id="zip" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="instructions">Delivery Instructions (Optional)</label>
+                    <textarea class="form-control" id="instructions" rows="2"></textarea>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="checkout-summary">
+                <h5>Order Summary</h5>
+                <div class="d-flex justify-content-between">
+                  <span>Subtotal:</span>
+                  <span id="subtotal">₹0</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Tax (5%):</span>
+                  <span id="tax">₹0</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Delivery Fee:</span>
+                  <span id="deliveryFee">₹30</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between fw-bold">
+                  <span>Total:</span>
+                  <span id="total">₹0</span>
+                </div>
+                <button class="btn btn-order w-100 mt-3" id="checkoutBtn">Proceed to Checkout</button>
+                <button class="btn btn-outline-secondary w-100 mt-2" id="backToCartBtn" style="display: none;">Back to Cart</button>
+                <button class="btn btn-order w-100 mt-3" id="placeOrderBtn" style="display: none;">Place Order</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Order Confirmation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+          <h4 class="mt-3">Thank you for your order!</h4>
+          <p>Your order has been placed successfully.</p>
+          <p>Order ID: <strong id="orderId">LMX-<span id="orderNumber">0000</span></strong></p>
+          <p>Estimated delivery time: <strong>30-45 minutes</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-order w-100" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Cart functionality
+    let cart = [];
+    const cartCount = document.querySelector('.cart-count');
+    const cartItemsContainer = document.getElementById('cartItems');
+    const emptyCartMessage = document.getElementById('emptyCartMessage');
+    const subtotalElement = document.getElementById('subtotal');
+    const taxElement = document.getElementById('tax');
+    const deliveryFeeElement = document.getElementById('deliveryFee');
+    const totalElement = document.getElementById('total');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const backToCartBtn = document.getElementById('backToCartBtn');
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+    const addressForm = document.getElementById('addressForm');
+    const deliveryForm = document.getElementById('deliveryForm');
+    const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+    const orderConfirmationModal = new bootstrap.Modal(document.getElementById('orderConfirmationModal'));
+
+    // Add to cart buttons
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function() {
+        const name = this.getAttribute('data-name');
+        const price = parseInt(this.getAttribute('data-price'));
+        const img = this.getAttribute('data-img');
+        
+        // Check if item already exists in cart
+        const existingItem = cart.find(item => item.name === name);
+        
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            name,
+            price,
+            img,
+            quantity: 1
+          });
+        }
+        
+        updateCart();
+        checkoutModal.show();
+      });
+    });
+
+    // Update cart UI
+    function updateCart() {
+      // Update cart count
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+      
+      // Update cart items list
+      if (cart.length === 0) {
+        emptyCartMessage.style.display = 'block';
+        cartItemsContainer.innerHTML = '';
+        addressForm.style.display = 'none';
+        checkoutBtn.style.display = 'block';
+        placeOrderBtn.style.display = 'none';
+        backToCartBtn.style.display = 'none';
+      } else {
+        emptyCartMessage.style.display = 'none';
+        
+        let cartHTML = '';
+        cart.forEach((item, index) => {
+          cartHTML += `
+            <div class="checkout-item">
+              <div class="d-flex align-items-center">
+                <img src="${item.img}" alt="${item.name}">
+                <div>
+                  <h6>${item.name}</h6>
+                  <p class="mb-0">₹${item.price}</p>
+                </div>
+              </div>
+              <div class="quantity-control">
+                <button class="quantity-btn decrease" data-index="${index}">-</button>
+                <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                <button class="quantity-btn increase" data-index="${index}">+</button>
+                <button class="btn btn-sm btn-danger ms-2 remove-item" data-index="${index}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        cartItemsContainer.innerHTML = cartHTML;
+        
+        // Add event listeners to quantity buttons
+        document.querySelectorAll('.decrease').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = this.getAttribute('data-index');
+            if (cart[index].quantity > 1) {
+              cart[index].quantity -= 1;
+              updateCart();
+            }
+          });
+        });
+        
+        document.querySelectorAll('.increase').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = this.getAttribute('data-index');
+            cart[index].quantity += 1;
+            updateCart();
+          });
+        });
+        
+        document.querySelectorAll('.remove-item').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = this.getAttribute('data-index');
+            cart.splice(index, 1);
+            updateCart();
+          });
+        });
+      }
+      
+      // Update totals
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const tax = Math.round(subtotal * 0.05);
+      const deliveryFee = 30;
+      const total = subtotal + tax + deliveryFee;
+      
+      subtotalElement.textContent = `₹${subtotal}`;
+      taxElement.textContent = `₹${tax}`;
+      deliveryFeeElement.textContent = `₹${deliveryFee}`;
+      totalElement.textContent = `₹${total}`;
+    }
+
+    // Checkout button - shows address form
+    checkoutBtn.addEventListener('click', function() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      
+      addressForm.style.display = 'block';
+      checkoutBtn.style.display = 'none';
+      placeOrderBtn.style.display = 'block';
+      backToCartBtn.style.display = 'block';
+    });
+
+    // Back to cart button
+    backToCartBtn.addEventListener('click', function() {
+      addressForm.style.display = 'none';
+      checkoutBtn.style.display = 'block';
+      placeOrderBtn.style.display = 'none';
+      backToCartBtn.style.display = 'none';
+    });
+
+    // Place order button
+    placeOrderBtn.addEventListener('click', function() {
+      if (!deliveryForm.checkValidity()) {
+        deliveryForm.reportValidity();
+        return;
+      }
+      
+      // Generate random order number
+      const orderNumber = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('orderNumber').textContent = orderNumber;
+      
+      // Show confirmation modal
+      checkoutModal.hide();
+      orderConfirmationModal.show();
+      
+      // Reset cart
+      cart = [];
+      updateCart();
+      deliveryForm.reset();
+      addressForm.style.display = 'none';
+      checkoutBtn.style.display = 'block';
+      placeOrderBtn.style.display = 'none';
+      backToCartBtn.style.display = 'none';
+    });
+
+    // Contact form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your message! We will get back to you soon.');
+      this.reset();
+    });
+  </script>
+</body>
+
+</html>
